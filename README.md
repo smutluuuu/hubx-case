@@ -23,8 +23,7 @@ docker compose up
 
 Step 4: You can check the server is running with this request
 
-'''bash
-
+```bash
 http://localhost:4000/book/books
-
+```
 
