@@ -2,6 +2,22 @@ const { validationResult } = require('express-validator');
 const Book = require('../models/book');
 const { urlencoded } = require('body-parser');
 
+/**
+ * Gets book items
+ *
+ * @param {object} author the author object
+ * @param {string} author.name  the author object's name
+ * @param {string} author.country  the author object's country
+ * @param {string} author.birthDate  the author object's birth date
+ * @param {string} title the title of book
+ * @param {string} price the price of book
+ * @param {string} isbn the isbn of book
+ * @param {string} language the language of book
+ * @param {string} numberOfPages the total page number of book
+ * @param {string} publisher the publisher of book
+ * @returns {Object} the books
+ */
+
 exports.getBook = async (req, res, next) => {
   try {
     const books = await Book.find();
@@ -21,6 +37,22 @@ exports.getBook = async (req, res, next) => {
     next(err);
   }
 };
+
+/**
+ * Create a book item
+ *
+ * @param {object} author the author object
+ * @param {string} author.name  the author object's name
+ * @param {string} author.country  the author object's country
+ * @param {string} author.birthDate  the author object's birth date
+ * @param {string} title the title of book
+ * @param {string} price the price of book
+ * @param {string} isbn the isbn of book
+ * @param {string} language the language of book
+ * @param {string} numberOfPages the total page number of book
+ * @param {string} publisher the publisher of book
+ * @returns {Object} the created book.
+ */
 
 exports.createBook = async (req, res, next) => {
   const errors = validationResult(req);
@@ -63,6 +95,22 @@ exports.createBook = async (req, res, next) => {
   }
 };
 
+/**
+ * Update a book item
+ * @param {Id} bookId the book ID
+ * @param {object} author the author object
+ * @param {string} author.name  the author object's name
+ * @param {string} author.country  the author object's country
+ * @param {string} author.birthDate  the author object's birth date
+ * @param {string} title the title of book
+ * @param {string} price the price of book
+ * @param {string} isbn the isbn of book
+ * @param {string} language the language of book
+ * @param {string} numberOfPages the total page number of book
+ * @param {string} publisher the publisher of book
+ * @returns {Object} the updated book.
+ */
+
 exports.updateBook = async (req, res, next) => {
 
   const bookId = req.body.bookId;
@@ -102,6 +150,12 @@ exports.updateBook = async (req, res, next) => {
     next(err);
   }
 };
+
+/**
+ * Delete a book item
+ * @param {Id} bookId the book ID
+ * @returns {String} message "Book deleted Successfully."
+ */
 
 exports.deleteBook = async (req, res, next) => {
   const bookId = req.body.bookId;

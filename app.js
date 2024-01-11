@@ -13,7 +13,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use(bodyParser.json()); //application/json
-app.use('/book',bookRoutes);
+app.use('/',bookRoutes);
 
 app.use((error, req, res, next) => {
   console.log(error);

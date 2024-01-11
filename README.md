@@ -15,18 +15,16 @@ Step 2: cd into the cloned repo and run:
 npm install
 ```
 
-Step 3: Put your credentials in the .env file.
+Step 3: Start the API by
 
 ```bash
-PORT=3000
-MONGODB_URI=mongodb://localhost:27017
-DB_NAME=my_db
+docker compose up 
 ```
 
-Step 4: Start the API by
+Step 4: You can check the server is running with this request
 
-```bash
-npm start
-```
+'''bash
+
+http://localhost:4000/book/books
 
 
