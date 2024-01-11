@@ -5,7 +5,7 @@ const { urlencoded } = require('body-parser');
 exports.getBook = async (req, res, next) => {
   try {
     const books = await Book.find();
-    if (!book) {
+    if (!books) {
       const error = new Error('There is no book to show.');
       error.statusCode = 404;
       throw error;
