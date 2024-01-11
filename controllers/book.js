@@ -4,24 +4,13 @@ const { urlencoded } = require('body-parser');
 
 /**
  * Gets book items
- *
- * @param {object} author the author object
- * @param {string} author.name  the author object's name
- * @param {string} author.country  the author object's country
- * @param {string} author.birthDate  the author object's birth date
- * @param {string} title the title of book
- * @param {string} price the price of book
- * @param {string} isbn the isbn of book
- * @param {string} language the language of book
- * @param {string} numberOfPages the total page number of book
- * @param {string} publisher the publisher of book
- * @returns {Object} the books
+ * @returns {{books:Array,message:String}} the books
  */
 
 exports.getBook = async (req, res, next) => {
   try {
     const books = await Book.find();
-    if (!books) {
+    if (books.length === 0) {
       const error = new Error('There is no book to show.');
       error.statusCode = 404;
       throw error;
@@ -51,7 +40,7 @@ exports.getBook = async (req, res, next) => {
  * @param {string} language the language of book
  * @param {string} numberOfPages the total page number of book
  * @param {string} publisher the publisher of book
- * @returns {Object} the created book.
+ * @returns {{author:{name:String,country:String}}} the created book.
  */
 
 exports.createBook = async (req, res, next) => {
@@ -112,7 +101,6 @@ exports.createBook = async (req, res, next) => {
  */
 
 exports.updateBook = async (req, res, next) => {
-
   const bookId = req.body.bookId;
   const title = req.body.title;
   const author = req.body.author;
@@ -121,7 +109,7 @@ exports.updateBook = async (req, res, next) => {
   const language = req.body.language;
   const numberOfPages = req.body.numberOfPages;
   const publisher = req.body.publisher;
-  
+
   try {
     const book = await Book.findById(bookId);
     if (!book) {
@@ -158,7 +146,7 @@ exports.updateBook = async (req, res, next) => {
  */
 
 exports.deleteBook = async (req, res, next) => {
-  const bookId = req.body.bookId;
+  const bookId = req.query.bookId;
   console.log(bookId);
   try {
     const book = await Book.findById(bookId);
