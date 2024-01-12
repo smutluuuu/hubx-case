@@ -33,3 +33,9 @@ Step 5: Check the swagger docs on link.
 ```bash
 http://localhost:4000/api-docs
 ```
+
+Step 6: To start tests use this command
+
+```bash
+npm run test
+```
