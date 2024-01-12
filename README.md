@@ -27,3 +27,9 @@ Step 4: You can check the server is running with this request
 http://localhost:4000/books
 ```
 
+
+Step 5: Check the swagger docs on link.
+
+```bash
+http://localhost:4000/api-docs
+```
