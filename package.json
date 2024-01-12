@@ -4,19 +4,23 @@
   "description": "Hubx-Case",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "test": "jest --watchAll",
+    "start": "nodemon server.js",
+    "server": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
+    "jest": "^29.7.0",
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.4",
     "mongosh": "^2.1.1",
+    "supertest": "^6.3.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0"
   },

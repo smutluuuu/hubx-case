@@ -21,7 +21,7 @@ Step 3: Start the API by
 docker compose up 
 ```
 
-Step 4: You can check the server is running with this request
+Step 4: You can check if the server is running or not.
 
 ```bash
 http://localhost:4000/books

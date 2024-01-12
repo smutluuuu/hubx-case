@@ -1,3 +1,4 @@
+// Importing Libraries
 const express = require('express');
 const dotenv = require('dotenv').config();
 const app = express();
@@ -7,13 +8,14 @@ const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 const bookRoutes = require('./routes/book');
 
+//Adding Headers
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
   next();
 });
-
+//Options for OpenAPI
 const options = {
   definition: {
     openapi: '3.0.0',
@@ -31,13 +33,18 @@ const options = {
   apis: ['./routes/*.js'],
 };
 
+//Starting Swagger
 const specs = swaggerJsDoc(options);
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 app.use(bodyParser.json()); //application/json
+
+//Importing Routes
 app.use('/', bookRoutes);
 
+
+//Error Handling
 app.use((error, req, res, next) => {
   console.log(error);
   const status = error.statusCode || 500;
@@ -47,7 +54,7 @@ app.use((error, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 3000;
-
+//DB Connection and Run NODE APP
 mongoose
   .connect(process.env.MONGODB_URI)
   .then((result) => {
@@ -58,3 +65,5 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+  module.exports=app;
