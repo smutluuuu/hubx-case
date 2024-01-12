@@ -11,7 +11,7 @@ exports.getBook = async (req, res, next) => {
   try {
     const books = await Book.find();
     if (books.length === 0) {
-      const error = new Error('There is no book to show.');
+      const error = new Error('There are no book to show.');
       error.statusCode = 404;
       throw error;
     }
@@ -40,16 +40,18 @@ exports.getBook = async (req, res, next) => {
  * @param {string} language the language of book
  * @param {string} numberOfPages the total page number of book
  * @param {string} publisher the publisher of book
- * @returns {{author:{name:String,country:String}}} the created book.
+ * @returns {{author:{name:String,country:String,birthDate:String},title:String,price:Number,isbn:Number,language:String,numberOfPages:Number,publisher:String,_id:ObjectId}} the created book.
  */
 
 exports.createBook = async (req, res, next) => {
+
   const errors = validationResult(req);
-  console.log(errors.array);
+
   if (!errors.isEmpty()) {
-    const error = new Error('Validation Failed,entered data is incorrect.');
-    error.statusCode = 422;
-    throw error;
+    res.status(400).json({
+      error: errors.array(),
+    });
+    return
   }
 
   const title = req.body.title;
@@ -97,10 +99,20 @@ exports.createBook = async (req, res, next) => {
  * @param {string} language the language of book
  * @param {string} numberOfPages the total page number of book
  * @param {string} publisher the publisher of book
- * @returns {Object} the updated book.
+ * @returns {{author:{name:String,country:String,birthDate:String},message:String,title:String,price:Number,isbn:Number,language:String,numberOfPages:Number,publisher:String,bookId:ObjectId}} the updated book.
  */
 
 exports.updateBook = async (req, res, next) => {
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+   res.status(400).json({
+      error: errors.array()
+    });
+    return
+  }
+
   const bookId = req.body.bookId;
   const title = req.body.title;
   const author = req.body.author;
@@ -146,8 +158,18 @@ exports.updateBook = async (req, res, next) => {
  */
 
 exports.deleteBook = async (req, res, next) => {
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+   res.status(400).json({
+      error: errors.array()
+    });
+    return
+  }
+
   const bookId = req.query.bookId;
-  console.log(bookId);
+  
   try {
     const book = await Book.findById(bookId);
     if (!book) {

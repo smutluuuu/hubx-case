@@ -13,11 +13,11 @@ const bookSchema = new Schema({
     birthDate:{type: String}
   },
   price: {
-    type: String,
+    type: Number,
     required: true,
   },
   isbn: {
-    type: String,
+    type: Number,
     required: true,
   },
   language: {
@@ -25,7 +25,7 @@ const bookSchema = new Schema({
     required: true,
   },
   numberOfPages: {
-    type: String,
+    type: Number,
     required: true,
   },
   publisher: {
