@@ -2,7 +2,7 @@
   "name": "hubx-case",
   "version": "1.0.0",
   "description": "Hubx-Case",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "jest --watchAll",
     "start": "nodemon app.js",

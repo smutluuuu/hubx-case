@@ -35,10 +35,10 @@ exports.getBook = async (req, res, next) => {
  * @param {string} author.country  the author object's country
  * @param {string} author.birthDate  the author object's birth date
  * @param {string} title the title of book
- * @param {string} price the price of book
- * @param {string} isbn the isbn of book
+ * @param {number} price the price of book
+ * @param {number} isbn the isbn of book
  * @param {string} language the language of book
- * @param {string} numberOfPages the total page number of book
+ * @param {number} numberOfPages the total page number of book
  * @param {string} publisher the publisher of book
  * @returns {{author:{name:String,country:String,birthDate:String},title:String,price:Number,isbn:Number,language:String,numberOfPages:Number,publisher:String,_id:ObjectId}} the created book.
  */

@@ -5,7 +5,6 @@ const router = express.Router();
 
 const bookController = require('../controllers/book');
 
-
 /**
  * @swagger
  * components:
@@ -39,7 +38,7 @@ const bookController = require('../controllers/book');
  *           type: String
  *           description: The author's country
  *         author.birthDate:
- *           type: String
+ *           type: Date
  *           description: The author's birthday date
  *         price:
  *            type: Number
@@ -55,12 +54,12 @@ const bookController = require('../controllers/book');
  *             description: Page number of book
  *         publisher:
  *             type: String
- *             description: Publisher name of book 
+ *             description: Publisher name of book
  *       example:
  *         bookId: "123456718234234231234234"
  *         title: The New Turing Omnibus
  *         author: {
- *             "name":AlexanderDewdney","country":"Tr","birthDate":"11.22.33"}
+ *             "name":AlexanderDewdney","country":"Tr","birthDate":"2024-01-14T13:19:16.052Z"}
  *         price: 233
  *         isbn: 1111132323232
  *         language: Turkish
@@ -68,14 +67,14 @@ const bookController = require('../controllers/book');
  *         publisher: Publish House
  */
 
- /**
-  * @swagger
-  * tags:
-  *   name: Books
-  *   description: The books managing API
-  */
+/**
+ * @swagger
+ * tags:
+ *   name: Books
+ *   description: The books managing API
+ */
 
- /**
+/**
  * @swagger
  * /books:
  *   get:
@@ -91,8 +90,6 @@ const bookController = require('../controllers/book');
  *               items:
  *                 $ref: '#/components/schemas/Book'
  */
-
-
 
 router.get('/books', bookController.getBook);
 
@@ -130,16 +127,20 @@ router.get('/books', bookController.getBook);
 router.post(
   '/book',
   [
-    body('author.name').trim().notEmpty().withMessage('Required field.'),
-    body('author.country').trim().notEmpty().withMessage('Required field.'),
-    body('author.birthDate').trim().notEmpty().withMessage('Required field.'),
-    body('title').trim().notEmpty().withMessage('Required field.'),
-    body('price').isNumeric().notEmpty().withMessage('Required field.'),
+    body('author.name').isString().trim().notEmpty().withMessage('Required field.'),
+    body('author.country').isString().trim().notEmpty().withMessage('Required field.'),
+    body('author.birthDate').isISO8601().toDate().withMessage('Invalid date recieved').notEmpty().withMessage('Required field.'),
+    body('title').isString().trim().notEmpty().withMessage('Required field.'),
+    body('price').isNumeric().isInt().notEmpty().withMessage('Required field.'),
     body('isbn')
       .isNumeric()
       .isLength({ min: 13, max: 13 })
       .withMessage('Must be 13 characters'),
-    body('language').trim().notEmpty().withMessage('Required field.'),
+    body('language')
+      .trim()
+      .isString()
+      .notEmpty()
+      .withMessage('Required field.'),
     body('numberOfPages')
       .trim()
       .notEmpty()
@@ -156,7 +157,6 @@ router.post(
  * @apiSuccess (200) {String} sends message "Book deleted Successfully."
  */
 
-
 /**
  * @swagger
  * /book:
@@ -170,15 +170,13 @@ router.post(
  *           type: string
  *         required: true
  *         description: The book id
- * 
+ *
  *     responses:
  *       200:
  *         description: Book deleted Successfully.
  *       404:
  *         description: Could not find book.
  */
-
-
 
 router.delete(
   '/book',
@@ -225,7 +223,6 @@ router.delete(
  *        description: Some error happened
  */
 
-
 router.put(
   '/book',
   body('bookId')
@@ -252,7 +249,6 @@ router.put(
 );
 
 module.exports = router;
-
 
 /**
  * @api {get} /books Get all Books
