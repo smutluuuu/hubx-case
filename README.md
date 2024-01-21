@@ -15,26 +15,32 @@ Step 2: cd into the cloned repo and run:
 npm install
 ```
 
-Step 3: Start the API by
+Step 4: Build the docker
+
+```bash
+docker compose build 
+```
+
+Step 5: Start the docker
 
 ```bash
 docker compose up 
 ```
 
-Step 4: You can check if the server is running or not.
+Step 6: You can check if the server is running or not.
 
 ```bash
 http://localhost:4000/books
 ```
 
 
-Step 5: Check the swagger docs on link.
+Step 7: Check the swagger docs on link.
 
 ```bash
 http://localhost:4000/api-docs
 ```
 
-Step 6: To start tests use this command
+Step 8: To start tests use this command
 
 ```bash
 npm run test
